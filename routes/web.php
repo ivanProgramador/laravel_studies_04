@@ -42,3 +42,24 @@ Route::get('/sqllite',function(){
      }
 
 });
+
+
+
+Route::get('/sqlserver',function(){
+
+    //Ele vai tentar se conectar 
+
+     try{
+
+         //sele ele conseguir ele vai mostrar o nome da base de dados na tela 
+         DB::connection()->getPdo();
+         echo"Conexão com a base de dados: ".DB::connection()->getDatabaseName();
+       
+     }catch(\Exception $e){
+
+        // se ele não conseguir ele vai mostrar uma mensagem de erro 
+
+         die("Não foi possivel se conectar com a base de dados : ".$e->getMessage());
+     }
+
+});
