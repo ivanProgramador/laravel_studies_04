@@ -1,0 +1,45 @@
+Como o laravel sabe qual é o banco  que deve acessar ?
+1 - Quando o sistema inicia ele faz a leeitura dos aqruivos de configuração 
+    entre eles esta o database.php  
+2 - dentro dele tem um array de configurações que possuem os dados pre-definidos para cada base de dados 
+    como a abse de dados que eu uso é o mysql o sistema vai ler esse array 
+
+     'mysql' => [
+            'driver' => 'mysql',
+            'url' => env('DB_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => env('DB_CHARSET', 'utf8mb4'),
+            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
+3 - Embora ele tenha as constantes pre-definidas caso nada seja definido, mas no meu caso eu configurei la no .env 
+
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=laravel_mysql_database
+   DB_USERNAME=root
+   DB_PASSWORD=
+
+4 - Então ele vai ler o .env e preencher  com base no que foi configurado por mim 
+
+5 - ele tem também o default connection que caso nada seja definido o sistema aponta para um sqlite 
+
+     'default' => env('DB_CONNECTION', 'sqlite') 
+
+
+
+
+
