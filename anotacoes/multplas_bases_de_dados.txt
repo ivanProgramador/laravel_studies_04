@@ -1,0 +1,48 @@
+A conexão simultanea pode servir para varios fins mas no caso do meu projeto 
+uma base de dados sera usada para grvara dados dos usuarios e a outra sera usada 
+pelo app, para usar duas bases ao mesmo tempo no laravel basta criar mais uma conexão 
+dentro do arquivo database
+
+a primeira aponta para a base dos usuarios e a segunda para a abase do app 
+---------------------------------------------------------------------------------
+
+ 'mysql_users' => [
+            'driver' => 'mysql',
+            'url' => '',
+            'host' => 'localhost',
+            'port' => '3306',
+            'database' => 'laravel_mysql_auth',
+            'username' => 'root',
+            'password' => '',
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => env('DB_CHARSET', 'utf8mb4'),
+            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+         'mysql_app' => [
+            'driver' => 'mysql',
+            'url' => '',
+            'host' => '127.0.0.1',
+            'port' => '3306',
+            'database' => 'laravel_mysql_app',
+            'username' => 'root',
+            'password' => '',
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => env('DB_CHARSET', 'utf8mb4'),
+            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+            ],
+-------------------------------------------------------------------------------------
+

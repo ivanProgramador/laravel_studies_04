@@ -1,5 +1,6 @@
 <?php
 
+use Dba\Connection;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -63,3 +64,27 @@ Route::get('/sqlserver',function(){
      }
 
 });
+
+Route::get('/mysql_test_two_databases',function(){
+
+    try{
+        //conectando na primeira
+        DB::connection('mysql_users')->getPdo();
+        echo'Sucesso banco 1 :'.DB::connection('mysql_users')->getDatabaseName();
+        echo'<br>';
+        
+        //conetando a segunda 
+
+         DB::connection('mysql_app')->getPdo();
+        echo'Sucesso banco 2 :'.DB::connection('mysql_app')->getDatabaseName();
+        echo'<br>';
+
+
+    }catch(\Exception $e){
+
+         die('Erro:'.$e->getMessage());
+    }
+});
+
+
+
