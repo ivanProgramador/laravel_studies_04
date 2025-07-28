@@ -61,6 +61,27 @@ php artisan migrate
     }
 
 ------------------------------------------------------------------
+ATENÇÃO!
+  O artisan quando cria essas tabelas ele tambem vai criar a tabela sessions 
+  e a tabela migrations, nuncamexa nessas tabelas, porque são tabelas de controle
+  é atraves de dela que o "ORM" sabe as migrations que ja foram executadas e a ordem 
+  de execução, um erro nessas tebelas pode comprometer a estrtura das bases de 
+  dados do projeto.  
+
+
+desfazendo a ultima migration feita 
+
+   php artisan migrate:rollback
+
+desfazendo todas as migrations
+
+   php artisan migrate:reset 
+
+---------------------------------------------------------------------------------------
+Esses comandos executam sql pra criar essas tabelas, seu precisar ver o codigo sql antes qque ele seja 
+executado de fato eu tenho que usar o comando.
+
+php artisan migrate --pretend
 
 
 
