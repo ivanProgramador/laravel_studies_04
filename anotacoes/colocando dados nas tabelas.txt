@@ -1,0 +1,129 @@
+Em algum momento durabte o desenvolvimento de um porjeto sera preciso testar a base de dados 
+povoando ela com dados de teste, isso pode ser feito elo laravel usando seeders. antes de usar 
+primeiro o arquivo de seeders deve ser criado.  A execução do comando abaixo vai gerar um arquivo
+dentro da pasta database/seeders 
+
+ php artisan make:seeder UsersTableSeeder 
+
+
+Será gerada uma unica função 'run' dentro da classe "sersTableSeeder" ee dentro da função run 
+eu chamo a facade DB que vai de fato criar o insert dentro da tabela   
+--------------------------------------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB; // <- Aqui está a importação que faltava
+use Illuminate\Support\Facades\Hash; // Opcional, se quiser usar Hash::make()
+
+class UsersTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        DB::table('users')->insert([
+            'username' => 'user1',
+            'password' => bcrypt('senha'), // ou Hash::make('senha')
+            'active' => true,
+            ''
+        ]);
+    }
+}
+
+-----------------------------------------------------------------
+executando o seed 
+  php artisan db:seed UsersTableSeeder
+
+depois desse comando ele vai rodar o metodo run(), e usar a instrução para gravar os dados 
+no caso eu usei uma instrução de query builder 
+
+DB::table('users')->insert([
+            'username' => 'user1',
+            'password' => bcrypt('senha'), // ou Hash::make('senha')
+            'active' => true,
+            ''
+        ]);
+
+--------------------------------------------------------------------------------------------------
+
+gravando varios registros ao mesmo tempo 
+-----------------------------------------------------------------------------------------------
+
+ public function run(): void
+    {
+         
+       $users = [
+
+            [
+                'username' =>'user2',
+                'password'=> bcrypt('senha'),
+                'active' => true  
+            ],
+             [
+                'username' =>'user3',
+                'password'=> bcrypt('senha'),
+                'active' => true  
+             ],
+              [
+                'username' =>'user5',
+                'password'=> bcrypt('senha'),
+                'active' => true  
+              ],
+               [
+                'username' =>'user6',
+                'password'=> bcrypt('senha'),
+                'active' => false  
+               ],
+                [
+                'username' =>'user7',
+                'password'=> bcrypt('senha'),
+                'active' => true  
+                ],
+                 [
+                'username' =>'user8',
+                'password'=> bcrypt('senha'),
+                'active' => false
+            ]
+
+        ];   
+
+
+        DB::table('users')->insert($users);
+
+    }
+
+-----------------------------------------------------------------------------------------------
+
+usando um loop para inserir dados em massa 
+
+---------------------------------------------------------------------------
+ public function run(): void
+    {
+
+        // 3 forma de gravar varios dados rendomicos na abase de dados
+        
+        $users = [];
+
+        for($index =0;$index < 10; $index ++){
+
+            $users[]=[
+                'username' => Str::random(10),
+                'password' => bcrypt('senha'),
+                'active' => (bool) rand(0,1)
+            ];
+        }
+        DB::table('users')->insert($users);
+
+
+
+
+        
+    }
+---------------------------------------------------------------------
+
+
+
