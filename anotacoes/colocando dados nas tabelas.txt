@@ -125,5 +125,19 @@ usando um loop para inserir dados em massa
     }
 ---------------------------------------------------------------------
 
+nesse caso eu chamo todas as seeders ao mesmo tempo e executo todas elas ao mesmo tempo 
 
+ public function run(): void
+   {
+     //executando varias seeders ao mesmo tempo 
+
+       $this->call([
+
+         UsersTableSeeder1::class,
+         UsersTableSeeder2::class,
+         UsersTableSeeder3::class
+
+       ]);
+        
+    }
 
