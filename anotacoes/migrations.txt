@@ -83,6 +83,51 @@ executado de fato eu tenho que usar o comando.
 
 php artisan migrate --pretend
 
+-----------------------------------------------------------------------------------------------------------
+As migrations também podem ser usadas para editar a estrutura das tabelas,
+
+criando a migration pra inserir um campo em uma tabela, o comand abaixo cria uma migration vazia  
+------------------------------------------------------------------------------------------  
+php artisan make:migration add_picture_products_table
+
+
+No caso eu criei um campo picture dentro da função up que tera 200 caractres e sera um string
+esse ampo vai ficar localizado depois da tebela description na estratura da tabela
+
+------------------------------------------------------------------------------------------------
+ //como se trata de uma amigration para inserie um campo em uma tabela 
+        //o sistema não coloca os campos pre-definidos no caso o usuario e quam deve avisar os campos que ele deseja 
+        
+        Schema::table('products',function(Blueprint $table){
+
+           //aqui eu declaro o campo que quero adicionar 
+           //aqui eu informo que o campo picture será adicionado depois do campo description 
+           // nesse caso eu posso , tanto adicionar  quanto definir em que posição da tabela o campo vai ficar
+             
+           $table->string('picture',200)->nullable()->after('description');
+
+
+        });
+
+------------------------------------------------------------------------------------------------       
+Nesse caso digamos que eu precise mudar o nome de um campo especifico da tabela esse comando vai gerar uma migration vazia
+
+   php artisan make:migration change_description_products_table
+
+Aplicando as novas configurações para o campo 
+
+-----------------------------------------------------------------------------------------------------
+public function up(): void
+    {
+        Schema::table('products',function(Blueprint $table){
+             
+            $table->string('description',200)->nullable()->change();
+
+        });
+    }
+
+
+
 
 
 
